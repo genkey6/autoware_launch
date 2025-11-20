@@ -27,55 +27,55 @@ sensor_kit_base_link:
     roll: 0.0
     pitch: 0.0
     yaw: 0.0
-  camera0/camera_link: # front/center
+  camera0/camera_link: # front/center/right
     x: 1.68
     y: 0.0
     z: 0.042
     roll: 0.0
     pitch: 0.0
     yaw: 0.0
-  camera1/camera_link: # rear/center
-    x: 0.04
-    y: 0.1
-    z: 0.042
-    roll: 0.0
-    pitch: 0.0
-    yaw: 0.0
-  camera2/camera_link: # front/center_left
+  camera1/camera_link: # front/center/left
     x: 1.68
     y: -0.1
     z: 0.042
     roll: 0.0
     pitch: 0.0
     yaw: 0.0
-  camera3/camera_link: # rear/right
-    x: 0.0
-    y: 0.4
+  camera2/camera_link: # rear/center
+    x: 0.04
+    y: 0.1
     z: 0.042
     roll: 0.0
     pitch: 0.0
-    yaw: 3.927 # 225 degree
-  camera4/camera_link: # front/left
+    yaw: 0.0
+  camera3/camera_link: # front/left
     x: 1.68
     y: -0.4
     z: 0.042
     roll: 0.0
     pitch: 0.0
     yaw: 0.017 # 45 degree
-  camera5/camera_link: # front/right
+  camera4/camera_link: # front/right
     x: 1.68
     y: 0.4
     z: 0.042
     roll: 0.0
     pitch: 0.0
     yaw: 5.498 # 315 degree
-  camera6/camera_link: # rear/left
+  camera5/camera_link: # rear/left
     x: 0.0
     y: -0.4
     z: 0.042
     roll: 0.0
     pitch: 0.0
     yaw: 2.356 # 135 degree
+  camera6/camera_link: # rear/right
+    x: 0.0
+    y: 0.4
+    z: 0.042
+    roll: 0.0
+    pitch: 0.0
+    yaw: 3.927 # 225 degree
   gnss_link:
     x: 0.0
     y: 0.0
