@@ -1,67 +1,82 @@
 <?xml version="1.0"?>
 <robot xmlns:xacro="http://ros.org/wiki/xacro">
-  <xacro:macro name="sensor_kit_macro" params="parent">
+  <xacro:macro name="sensor_kit_macro" params="parent x y z roll pitch yaw">
     <xacro:include filename="$(find data_collection_car_sensor_kit_description)/urdf/robosense_m1_plus.xacro"/>
     <xacro:include filename="$(find camera_description)/urdf/monocular_camera.xacro"/>
     <xacro:include filename="$(find imu_description)/urdf/imu.xacro"/>
 
     <xacro:arg name="config_dir" default="$(find data_collection_car_sensor_kit_description)/config"/>
 
+    <xacro:property name="sensor_kit_base_link" value="sensor_kit_base_link"/>
     <xacro:property name="calibration" value="${xacro.load_yaml('$(arg config_dir)/sensor_kit_calibration.yaml')}"/>
+
+    <joint name="${sensor_kit_base_link}_joint" type="fixed">
+      <origin xyz="${x} ${y} ${z}" rpy="${roll} ${pitch} ${yaw}"/>
+      <parent link="${parent}"/>
+      <child link="${sensor_kit_base_link}"/>
+    </joint>
+
+    <link name="${sensor_kit_base_link}">
+      <inertial>
+        <origin xyz="0 0 0" rpy="0 0 0"/>
+        <mass value="1.0"/>
+        <inertia ixx="0.01" ixy="0.0" ixz="0.0" iyy="0.01" iyz="0.0" izz="0.01"/>
+      </inertial>
+    </link>
 
     <!-- Robosense M1 Plus lidars -->
     <xacro:robosense_m1_plus_macro
       name="rslidar_rear"
-      parent="${parent}"
-      x="${calibration['base_link']['rslidar_rear']['x']}"
-      y="${calibration['base_link']['rslidar_rear']['y']}"
-      z="${calibration['base_link']['rslidar_rear']['z']}"
-      roll="${calibration['base_link']['rslidar_rear']['roll']}"
-      pitch="${calibration['base_link']['rslidar_rear']['pitch']}"
-      yaw="${calibration['base_link']['rslidar_rear']['yaw']}"
+      parent="${sensor_kit_base_link}"
+      x="${calibration['sensor_kit_base_link']['rslidar_rear']['x']}"
+      y="${calibration['sensor_kit_base_link']['rslidar_rear']['y']}"
+      z="${calibration['sensor_kit_base_link']['rslidar_rear']['z']}"
+      roll="${calibration['sensor_kit_base_link']['rslidar_rear']['roll']}"
+      pitch="${calibration['sensor_kit_base_link']['rslidar_rear']['pitch']}"
+      yaw="${calibration['sensor_kit_base_link']['rslidar_rear']['yaw']}"
     />
     <xacro:robosense_m1_plus_macro
       name="rslidar_right"
-      parent="${parent}"
-      x="${calibration['base_link']['rslidar_right']['x']}"
-      y="${calibration['base_link']['rslidar_right']['y']}"
-      z="${calibration['base_link']['rslidar_right']['z']}"
-      roll="${calibration['base_link']['rslidar_right']['roll']}"
-      pitch="${calibration['base_link']['rslidar_right']['pitch']}"
-      yaw="${calibration['base_link']['rslidar_right']['yaw']}"
+      parent="${sensor_kit_base_link}"
+      x="${calibration['sensor_kit_base_link']['rslidar_right']['x']}"
+      y="${calibration['sensor_kit_base_link']['rslidar_right']['y']}"
+      z="${calibration['sensor_kit_base_link']['rslidar_right']['z']}"
+      roll="${calibration['sensor_kit_base_link']['rslidar_right']['roll']}"
+      pitch="${calibration['sensor_kit_base_link']['rslidar_right']['pitch']}"
+      yaw="${calibration['sensor_kit_base_link']['rslidar_right']['yaw']}"
     />
     <xacro:robosense_m1_plus_macro
       name="rslidar_left"
-      parent="${parent}"
-      x="${calibration['base_link']['rslidar_left']['x']}"
-      y="${calibration['base_link']['rslidar_left']['y']}"
-      z="${calibration['base_link']['rslidar_left']['z']}"
-      roll="${calibration['base_link']['rslidar_left']['roll']}"
-      pitch="${calibration['base_link']['rslidar_left']['pitch']}"
-      yaw="${calibration['base_link']['rslidar_left']['yaw']}"
+      parent="${sensor_kit_base_link}"
+      x="${calibration['sensor_kit_base_link']['rslidar_left']['x']}"
+      y="${calibration['sensor_kit_base_link']['rslidar_left']['y']}"
+      z="${calibration['sensor_kit_base_link']['rslidar_left']['z']}"
+      roll="${calibration['sensor_kit_base_link']['rslidar_left']['roll']}"
+      pitch="${calibration['sensor_kit_base_link']['rslidar_left']['pitch']}"
+      yaw="${calibration['sensor_kit_base_link']['rslidar_left']['yaw']}"
     />
     <xacro:robosense_m1_plus_macro
       name="rslidar_front"
-      parent="${parent}"
-      x="${calibration['base_link']['rslidar_front']['x']}"
-      y="${calibration['base_link']['rslidar_front']['y']}"
-      z="${calibration['base_link']['rslidar_front']['z']}"
-      roll="${calibration['base_link']['rslidar_front']['roll']}"
-      pitch="${calibration['base_link']['rslidar_front']['pitch']}"
-      yaw="${calibration['base_link']['rslidar_front']['yaw']}"
+      parent="${sensor_kit_base_link}"
+      x="${calibration['sensor_kit_base_link']['rslidar_front']['x']}"
+      y="${calibration['sensor_kit_base_link']['rslidar_front']['y']}"
+      z="${calibration['sensor_kit_base_link']['rslidar_front']['z']}"
+      roll="${calibration['sensor_kit_base_link']['rslidar_front']['roll']}"
+      pitch="${calibration['sensor_kit_base_link']['rslidar_front']['pitch']}"
+      yaw="${calibration['sensor_kit_base_link']['rslidar_front']['yaw']}"
     />
 
     <!-- Cameras -->
     <xacro:monocular_camera_macro
       name="camera0/camera"
-      parent="${parent}"
+      parent="${sensor_kit_base_link}"
       namespace=""
-      x="${calibration['base_link']['camera0/camera_link']['x']}"
-      y="${calibration['base_link']['camera0/camera_link']['y']}"
-      z="${calibration['base_link']['camera0/camera_link']['z']}"
-      roll="${calibration['base_link']['camera0/camera_link']['roll']}"
-      pitch="${calibration['base_link']['camera0/camera_link']['pitch']}"
-      yaw="${calibration['base_link']['camera0/camera_link']['yaw']}"
+      x="${calibration['sensor_kit_base_link']['camera0/camera_link']['x']}"
+      y="${calibration['sensor_kit_base_link']['camera0/camera_link']['y']}"
+      z="${calibration['sensor_kit_base_link']['camera0/camera_link']['z']}"
+      roll="${calibration['sensor_kit_base_link']['camera0/camera_link']['roll']}"
+      pitch="${calibration['sensor_kit_base_link']['camera0/camera_link']['pitch']}"
+      yaw="${calibration['sensor_kit_base_link']['camera0/camera_link']['yaw']}"
       fps="30"
       width="800"
       height="400"
@@ -69,14 +84,14 @@
     />
     <xacro:monocular_camera_macro
       name="camera1/camera"
-      parent="${parent}"
+      parent="${sensor_kit_base_link}"
       namespace=""
-      x="${calibration['base_link']['camera1/camera_link']['x']}"
-      y="${calibration['base_link']['camera1/camera_link']['y']}"
-      z="${calibration['base_link']['camera1/camera_link']['z']}"
-      roll="${calibration['base_link']['camera1/camera_link']['roll']}"
-      pitch="${calibration['base_link']['camera1/camera_link']['pitch']}"
-      yaw="${calibration['base_link']['camera1/camera_link']['yaw']}"
+      x="${calibration['sensor_kit_base_link']['camera1/camera_link']['x']}"
+      y="${calibration['sensor_kit_base_link']['camera1/camera_link']['y']}"
+      z="${calibration['sensor_kit_base_link']['camera1/camera_link']['z']}"
+      roll="${calibration['sensor_kit_base_link']['camera1/camera_link']['roll']}"
+      pitch="${calibration['sensor_kit_base_link']['camera1/camera_link']['pitch']}"
+      yaw="${calibration['sensor_kit_base_link']['camera1/camera_link']['yaw']}"
       fps="30"
       width="800"
       height="400"
@@ -84,14 +99,14 @@
     />
     <xacro:monocular_camera_macro
       name="camera2/camera"
-      parent="${parent}"
+      parent="${sensor_kit_base_link}"
       namespace=""
-      x="${calibration['base_link']['camera2/camera_link']['x']}"
-      y="${calibration['base_link']['camera2/camera_link']['y']}"
-      z="${calibration['base_link']['camera2/camera_link']['z']}"
-      roll="${calibration['base_link']['camera2/camera_link']['roll']}"
-      pitch="${calibration['base_link']['camera2/camera_link']['pitch']}"
-      yaw="${calibration['base_link']['camera2/camera_link']['yaw']}"
+      x="${calibration['sensor_kit_base_link']['camera2/camera_link']['x']}"
+      y="${calibration['sensor_kit_base_link']['camera2/camera_link']['y']}"
+      z="${calibration['sensor_kit_base_link']['camera2/camera_link']['z']}"
+      roll="${calibration['sensor_kit_base_link']['camera2/camera_link']['roll']}"
+      pitch="${calibration['sensor_kit_base_link']['camera2/camera_link']['pitch']}"
+      yaw="${calibration['sensor_kit_base_link']['camera2/camera_link']['yaw']}"
       fps="30"
       width="800"
       height="400"
@@ -99,14 +114,14 @@
     />
     <xacro:monocular_camera_macro
       name="camera3/camera"
-      parent="${parent}"
+      parent="${sensor_kit_base_link}"
       namespace=""
-      x="${calibration['base_link']['camera3/camera_link']['x']}"
-      y="${calibration['base_link']['camera3/camera_link']['y']}"
-      z="${calibration['base_link']['camera3/camera_link']['z']}"
-      roll="${calibration['base_link']['camera3/camera_link']['roll']}"
-      pitch="${calibration['base_link']['camera3/camera_link']['pitch']}"
-      yaw="${calibration['base_link']['camera3/camera_link']['yaw']}"
+      x="${calibration['sensor_kit_base_link']['camera3/camera_link']['x']}"
+      y="${calibration['sensor_kit_base_link']['camera3/camera_link']['y']}"
+      z="${calibration['sensor_kit_base_link']['camera3/camera_link']['z']}"
+      roll="${calibration['sensor_kit_base_link']['camera3/camera_link']['roll']}"
+      pitch="${calibration['sensor_kit_base_link']['camera3/camera_link']['pitch']}"
+      yaw="${calibration['sensor_kit_base_link']['camera3/camera_link']['yaw']}"
       fps="30"
       width="800"
       height="400"
@@ -114,14 +129,14 @@
     />
     <xacro:monocular_camera_macro
       name="camera4/camera"
-      parent="${parent}"
+      parent="${sensor_kit_base_link}"
       namespace=""
-      x="${calibration['base_link']['camera4/camera_link']['x']}"
-      y="${calibration['base_link']['camera4/camera_link']['y']}"
-      z="${calibration['base_link']['camera4/camera_link']['z']}"
-      roll="${calibration['base_link']['camera4/camera_link']['roll']}"
-      pitch="${calibration['base_link']['camera4/camera_link']['pitch']}"
-      yaw="${calibration['base_link']['camera4/camera_link']['yaw']}"
+      x="${calibration['sensor_kit_base_link']['camera4/camera_link']['x']}"
+      y="${calibration['sensor_kit_base_link']['camera4/camera_link']['y']}"
+      z="${calibration['sensor_kit_base_link']['camera4/camera_link']['z']}"
+      roll="${calibration['sensor_kit_base_link']['camera4/camera_link']['roll']}"
+      pitch="${calibration['sensor_kit_base_link']['camera4/camera_link']['pitch']}"
+      yaw="${calibration['sensor_kit_base_link']['camera4/camera_link']['yaw']}"
       fps="30"
       width="800"
       height="400"
@@ -129,14 +144,14 @@
     />
     <xacro:monocular_camera_macro
       name="camera5/camera"
-      parent="${parent}"
+      parent="${sensor_kit_base_link}"
       namespace=""
-      x="${calibration['base_link']['camera5/camera_link']['x']}"
-      y="${calibration['base_link']['camera5/camera_link']['y']}"
-      z="${calibration['base_link']['camera5/camera_link']['z']}"
-      roll="${calibration['base_link']['camera5/camera_link']['roll']}"
-      pitch="${calibration['base_link']['camera5/camera_link']['pitch']}"
-      yaw="${calibration['base_link']['camera5/camera_link']['yaw']}"
+      x="${calibration['sensor_kit_base_link']['camera5/camera_link']['x']}"
+      y="${calibration['sensor_kit_base_link']['camera5/camera_link']['y']}"
+      z="${calibration['sensor_kit_base_link']['camera5/camera_link']['z']}"
+      roll="${calibration['sensor_kit_base_link']['camera5/camera_link']['roll']}"
+      pitch="${calibration['sensor_kit_base_link']['camera5/camera_link']['pitch']}"
+      yaw="${calibration['sensor_kit_base_link']['camera5/camera_link']['yaw']}"
       fps="30"
       width="800"
       height="400"
@@ -144,14 +159,14 @@
     />
     <xacro:monocular_camera_macro
       name="camera6/camera"
-      parent="${parent}"
+      parent="${sensor_kit_base_link}"
       namespace=""
-      x="${calibration['base_link']['camera6/camera_link']['x']}"
-      y="${calibration['base_link']['camera6/camera_link']['y']}"
-      z="${calibration['base_link']['camera6/camera_link']['z']}"
-      roll="${calibration['base_link']['camera6/camera_link']['roll']}"
-      pitch="${calibration['base_link']['camera6/camera_link']['pitch']}"
-      yaw="${calibration['base_link']['camera6/camera_link']['yaw']}"
+      x="${calibration['sensor_kit_base_link']['camera6/camera_link']['x']}"
+      y="${calibration['sensor_kit_base_link']['camera6/camera_link']['y']}"
+      z="${calibration['sensor_kit_base_link']['camera6/camera_link']['z']}"
+      roll="${calibration['sensor_kit_base_link']['camera6/camera_link']['roll']}"
+      pitch="${calibration['sensor_kit_base_link']['camera6/camera_link']['pitch']}"
+      yaw="${calibration['sensor_kit_base_link']['camera6/camera_link']['yaw']}"
       fps="30"
       width="800"
       height="400"
@@ -161,28 +176,28 @@
     <!-- GNSS -->
     <xacro:imu_macro
       name="gnss"
-      parent="${parent}"
+      parent="${sensor_kit_base_link}"
       namespace=""
-      x="${calibration['base_link']['gnss_link']['x']}"
-      y="${calibration['base_link']['gnss_link']['y']}"
-      z="${calibration['base_link']['gnss_link']['z']}"
-      roll="${calibration['base_link']['gnss_link']['roll']}"
-      pitch="${calibration['base_link']['gnss_link']['pitch']}"
-      yaw="${calibration['base_link']['gnss_link']['yaw']}"
+      x="${calibration['sensor_kit_base_link']['gnss_link']['x']}"
+      y="${calibration['sensor_kit_base_link']['gnss_link']['y']}"
+      z="${calibration['sensor_kit_base_link']['gnss_link']['z']}"
+      roll="${calibration['sensor_kit_base_link']['gnss_link']['roll']}"
+      pitch="${calibration['sensor_kit_base_link']['gnss_link']['pitch']}"
+      yaw="${calibration['sensor_kit_base_link']['gnss_link']['yaw']}"
       fps="100"
     />
 
     <!-- IMU -->
     <xacro:imu_macro
       name="imu"
-      parent="${parent}"
+      parent="${sensor_kit_base_link}"
       namespace=""
-      x="${calibration['base_link']['imu_link']['x']}"
-      y="${calibration['base_link']['imu_link']['y']}"
-      z="${calibration['base_link']['imu_link']['z']}"
-      roll="${calibration['base_link']['imu_link']['roll']}"
-      pitch="${calibration['base_link']['imu_link']['pitch']}"
-      yaw="${calibration['base_link']['imu_link']['yaw']}"
+      x="${calibration['sensor_kit_base_link']['imu_link']['x']}"
+      y="${calibration['sensor_kit_base_link']['imu_link']['y']}"
+      z="${calibration['sensor_kit_base_link']['imu_link']['z']}"
+      roll="${calibration['sensor_kit_base_link']['imu_link']['roll']}"
+      pitch="${calibration['sensor_kit_base_link']['imu_link']['pitch']}"
+      yaw="${calibration['sensor_kit_base_link']['imu_link']['yaw']}"
       fps="100"
     />
   </xacro:macro>
