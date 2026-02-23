@@ -8,70 +8,70 @@ base_link:
     yaw: 3.141 # 180 degree
   rslidar_right:
     x: 1.8
-    y: 0.36
+    y: -0.36 # right = negative y (REP-103)
     z: 1.43553
     roll: 0.0
     pitch: 0.0
     yaw: 4.45 # 255 degree
   rslidar_left:
     x: 1.8
-    y: -0.36
+    y: 0.36 # left = positive y (REP-103)
     z: 1.43553
     roll: 0.0
     pitch: 0.0
     yaw: 1.832 # 105 degree
   rslidar_front:
     x: 1.98
-    y: 0.5
+    y: 0.0 # centered
     z: 1.43553
     roll: 0.0
     pitch: 0.0
     yaw: 0.0
   camera0/camera_link: # front/center/right
     x: 1.98
-    y: 0.0
+    y: -0.1 # right = negative y
     z: 1.442
     roll: 0.0
     pitch: 0.0
     yaw: 0.0
   camera1/camera_link: # front/center/left
     x: 1.98
-    y: -0.1
+    y: 0.1 # left = positive y
     z: 1.442
     roll: 0.0
     pitch: 0.0
     yaw: 0.0
   camera2/camera_link: # rear/center
     x: 0.34
-    y: 0.1
+    y: 0.0
     z: 1.442
     roll: 0.0
     pitch: 0.0
-    yaw: 0.0
+    yaw: 3.141 # 180 degree
   camera3/camera_link: # front/left
     x: 1.98
-    y: -0.4
+    y: 0.4 # left = positive y
     z: 1.442
     roll: 0.0
     pitch: 0.0
     yaw: 0.5236 # 30 degree
   camera4/camera_link: # front/right
     x: 1.98
-    y: 0.4
+    y: -0.4 # right = negative y
     z: 1.442
     roll: 0.0
     pitch: 0.0
     yaw: 5.7596 # 330 degree
   camera5/camera_link: # rear/left
     x: 0.3
-    y: -0.4
+    y: 0.4 # left = positive y
     z: 1.442
     roll: 0.0
     pitch: 0.0
     yaw: 2.6180 # 150 degree
   camera6/camera_link: # rear/right
     x: 0.3
-    y: 0.4
+    y: -0.4 # right = negative y
     z: 1.442
     roll: 0.0
     pitch: 0.0
